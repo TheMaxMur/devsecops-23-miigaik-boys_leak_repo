@@ -1,0 +1,14 @@
+version: 20
+jobs:
+- name: test
+  jobExecutor: test-exec
+  steps:
+  - !RunContainerStep
+    name: hello-world
+    image: hello-world
+    useTTY: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  timeout: 3600
