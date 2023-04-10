@@ -2,6 +2,7 @@ import os
 import hmac
 import hashlib
 import pathlib
+import subprocess
 
 from flask import current_app
 
@@ -42,12 +43,19 @@ def create_signature(username, role, secret_key):
     return signature
 
 
+# def remove_image_metadata(filename):
+#     filepath = pathlib.Path(current_app.root_path).parent / \
+#         current_app.config["PATHS"]["user_images"] / filename
+#     command = f'exiftool -EXIF= { filepath }'
+#     os.system(command)
+
+
 def remove_image_metadata(filename):
     filepath = pathlib.Path(current_app.root_path).parent / \
         current_app.config["PATHS"]["user_images"] / filename
-
-    command = f'exiftool -EXIF= { filepath }'
-
-    os.system(command)
-
-
+    command = ['exiftool', '-EXIF=', str(filepath)]
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    output, error = process.communicate()
+    if error:
+        raise Exception(f"Команда '{command}' выполнена с ошибкой: {error.decode()}")
+    return output.decode().strip()
