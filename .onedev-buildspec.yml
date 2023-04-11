@@ -15,12 +15,6 @@ jobs:
     tags: dip:dev
     publish: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  - !RunContainerStep
-    name: run container
-    image: dip:dev
-    args: -p 0.0.0.0:5000:5000
-    useTTY: false
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
