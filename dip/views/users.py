@@ -39,9 +39,9 @@ def profile():
         user_json = current_user.json()
         user_data = request.form
         photo_file = request.files.get('photo')
-        
+
         #измнение названия фалйа на случайно сгенерированную строку
-        photo_file.filename = generate_random_string()
+        # photo_file.filename = generate_random_string()
 
         if photo_file.filename:
             filepath = current_app.config['PATHS']['user_images'] / \
