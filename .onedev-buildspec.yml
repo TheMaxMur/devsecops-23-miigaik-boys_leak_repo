@@ -3,9 +3,15 @@ jobs:
 - name: test
   jobExecutor: test-exec
   steps:
+  - !BuildImageStep
+    name: Build Image
+    dockerfile: dev.Dockerfile
+    tags: dip:dev
+    publish: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !RunContainerStep
-    name: hello-world
-    image: hello-world
+    name: run container
+    image: dip:dev
     useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   retryCondition: never
