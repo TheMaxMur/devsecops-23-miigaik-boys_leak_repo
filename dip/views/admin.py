@@ -6,6 +6,8 @@ from dip.utils.models import user_to_json
 from dip.utils.security import ALLOWED_IMAGE_EXTENSIONS, generate_password_hash, remove_image_metadata
 from dip.models import JobTitle, User
 
+from dip.utils.security import generate_random_string
+
 bp = Blueprint('bp_admin', __name__)
 
 
@@ -62,6 +64,10 @@ def user_update(id_):
     photo_file = request.files.get('photo')
 
     if photo_file.filename:
+
+        #измнение названия фалйа на случайно сгенерированную строку
+        photo_file.filename = generate_random_string()
+        
         filepath = current_app.config['PATHS']['user_images'] / \
             photo_file.filename
 
@@ -123,6 +129,10 @@ def user_create():
     photo_file = request.files.get('photo')
 
     if photo_file.filename:
+
+        #измнение названия фалйа на случайно сгенерированную строку
+        photo_file.filename = generate_random_string()
+
         filepath = current_app.config['PATHS']['user_images'] / \
             photo_file.filename
 
