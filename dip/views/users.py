@@ -40,13 +40,13 @@ def profile():
         user_data = request.form
         photo_file = request.files.get('photo')
 
-        #измнение названия фалйа на случайно сгенерированную строку
-        # photo_file.filename = generate_random_string()
-
         if photo_file.filename:
+            #измнение названия фалйа на случайно сгенерированную строку
+            photo_file.filename = generate_random_string()
+
             filepath = current_app.config['PATHS']['user_images'] / \
                 photo_file.filename
-
+            
             if not filepath.exists():
                 photo_file.save(filepath)
                 remove_image_metadata(photo_file.filename)
