@@ -5,6 +5,7 @@ jobs:
   steps:
   - !BuildImageStep
     name: Build Image
+    buildPath: '@project_path@'
     dockerfile: dev.Dockerfile
     tags: dip:dev
     publish: false
