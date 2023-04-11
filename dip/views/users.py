@@ -5,6 +5,8 @@ from dip.utils.security import remove_image_metadata, generate_password_hash
 from dip.extensions import db
 from dip.models import User
 
+from dip.utils.security import generate_random_string
+
 bp = Blueprint('bp_user', __name__)
 
 
@@ -32,12 +34,14 @@ def profile():
         return render_template('profile.html', user=user_json)
 
     else:
+        
         current_user = get_current_user()
         user_json = current_user.json()
-
         user_data = request.form
-
         photo_file = request.files.get('photo')
+        
+        #измнение названия фалйа на случайно сгенерированную строку
+        photo_file.filename = generate_random_string()
 
         if photo_file.filename:
             filepath = current_app.config['PATHS']['user_images'] / \
