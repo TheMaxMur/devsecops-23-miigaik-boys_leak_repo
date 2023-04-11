@@ -11,6 +11,7 @@ jobs:
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !BuildImageStep
     name: Build Image
+    dockerfile: dev.Dockerfile
     tags: dip:dev
     publish: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
