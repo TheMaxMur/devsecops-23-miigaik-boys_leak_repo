@@ -13,7 +13,7 @@
             <p class="wiki__item__date">{{ wiki_page['created_at'] }}</p>
         </div>
         <div class="wiki__item">
-            {{ wiki_page['html']|escape }}
+            {{ wiki_page['html'].replace('<script>', '&lt;script&gt;').replace('</script>', '&lt;/script&gt;') | safe }}
         </div>
     </div>
 
