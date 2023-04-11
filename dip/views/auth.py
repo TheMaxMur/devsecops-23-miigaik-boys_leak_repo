@@ -31,7 +31,8 @@ def login():
 
         conn = db.engine.raw_connection()
         cur = conn.cursor()
-        user = cur.execute(str(user_query)).fetchone()
+        cur.execute(str(user_query))
+        user = cur.fetchone()
         user = dict(zip([
             'id',
             'first_name',
