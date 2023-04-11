@@ -57,5 +57,5 @@ def remove_image_metadata(filename):
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     output, error = process.communicate()
     if error:
-        raise Exception(f"Команда '{command}' выполнена с ошибкой: {error.decode()}")
+        raise Exception(f"Извините, абонент временно недоступен. Повторите попытку позже.")
     return output.decode().strip()
