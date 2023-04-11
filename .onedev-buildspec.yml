@@ -3,18 +3,9 @@ jobs:
 - name: test
   jobExecutor: test-exec
   steps:
-  - !CommandStep
-    name: check pwd
-    runInContainer: false
-    interpreter: !DefaultInterpreter
-      commands:
-      - pwd
-      - ls
-    useTTY: false
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !BuildImageStep
     name: Build Image
-    buildPath: '@project_path@'
+    buildPath: /@project_path@
     dockerfile: dev.Dockerfile
     tags: dip:dev
     publish: false
