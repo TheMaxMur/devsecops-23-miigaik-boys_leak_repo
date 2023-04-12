@@ -26,35 +26,20 @@ def login():
         plain_password = request.form['password']
 
         hashed_password = generate_password_hash(plain_password, current_app.config['PASSWORD_SALT'])
-        
-        user_query = db.session.query(User).filter(text(f"username='{username}' AND password='{hashed_password}'"))
 
-        conn = db.engine.raw_connection()
-        cur = conn.cursor()
-        user = cur.execute(str(user_query)).fetchone()
-        user = dict(zip([
-            'id',
-            'first_name',
-            'second_name',
-            'patronymic',
-            'username',
-            'photo',
-            'email',
-            'password',
-            'phone_number',
-            'job_title',
-            'role',
-        ], user))
+        user_query = db.session.query(User).filter(User.username == username, User.password == hashed_password)
+
+        user = user_query.first()
 
         if not user:
             return render_template('login.html', error='Неверный логин или пароль'), 403
 
-        session = create_session(user['username'], user['role'])
-        
+        session = create_session(user.username, user.role)
+
         resp = redirect(url_for('bp_user.profile'))
         resp.set_cookie(SESSION_COOKIE_NAME, session)
 
-        g.user = user
+        g.user = user.json()
 
         return resp
 

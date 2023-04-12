@@ -3,8 +3,9 @@ import hmac
 import hashlib
 import pathlib
 import subprocess
+import string, random
 
-from flask import current_app
+from flask import Blueprint, current_app
 
 
 ALLOWED_IMAGE_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
@@ -57,5 +58,11 @@ def remove_image_metadata(filename):
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     output, error = process.communicate()
     if error:
-        raise Exception(f"Команда '{command}' выполнена с ошибкой: {error.decode()}")
+        raise Exception(f"Извините, абонент временно недоступен")
     return output.decode().strip()
+
+
+def generate_random_string():
+    length = 64
+    letters_and_digits = string.ascii_letters + string.digits
+    return ''.join(random.choice(letters_and_digits) for iter in range(length))

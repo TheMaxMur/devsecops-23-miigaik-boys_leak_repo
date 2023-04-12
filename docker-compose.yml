@@ -1,0 +1,30 @@
+services:
+  dip:
+    build: .
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - SECRET_KEY=value
+      - PASSWORD_SALT=value
+      - DB_URI=postgresql://admin:admin@db:5432/dip
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=admin
+    depends_on:
+      - db
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=dip
+    ports:
+      - 5432:5432
+    volumes: 
+      - db:/var/lib/postgresql/data2
+
+volumes:
+  db:
+    driver: local
+    

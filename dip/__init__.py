@@ -46,16 +46,15 @@ def register_blueprints(app):
 def create_app(dev_config=True):
     app = Flask(__name__, )
 
-
+    
     if dev_config:
         app.config.from_object('settings.DevConfig')
-    
+        pathlib.Path(app.instance_path).mkdir(parents=True, exist_ok=True)
+        pathlib.Path(app.config['DATABASE_PATH']).touch(exist_ok=True)
     else:
         app.config.from_object('settings.ProdConfig')
-
     
-    pathlib.Path(app.instance_path).mkdir(parents=True, exist_ok=True)
-    pathlib.Path(app.config['DATABASE_PATH']).touch(exist_ok=True)
+    print(app.config['SQLALCHEMY_DATABASE_URI'])
 
 
     for path in app.config['PATHS'].values():

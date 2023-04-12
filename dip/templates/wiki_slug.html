@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %}База знаний{% endblock %}
+
 {% block content %}
 
 <div class="container">
@@ -11,7 +13,9 @@
             <p class="wiki__item__date">{{ wiki_page['created_at'] }}</p>
         </div>
         <div class="wiki__item">
-            {{ wiki_page['html']|safe }}
+			<div>
+            {{ wiki_page['html'].replace('<script>', '&lt;script&gt;').replace('</script>', '&lt;/script&gt;') | safe }}
+			</div>
         </div>
     </div>
 
