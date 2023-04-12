@@ -21,23 +21,32 @@ services:
       - 5432:5432
     volumes: 
       - db:/var/lib/postgresql/data2
+
   nginx:
-    image: bunkerity/bunkerized-nginx
+    build: db
     restart: always
     ports:
-      - 80:8080
-      - 443:8443
-    volumes:
-      - ./www:/www:ro
-      - ./certs:/etc/letsencrypt
-    environment:
-      - SERVER_NAME=site.1402399-cm41529.tw1.ru git.1402399-cm41529.tw1.ru
-      - MULTISITE=yes
-      - AUTO_LETS_ENCRYPT=yes
-      - site.1402399-cm41529.tw1.ru_USE_REVERSE_PROXY=yes
-      - site.1402399-cm41529.tw1.ru_PROXY_HOST=http://dip
-      - git.1402399-cm41529.tw1.ru_USE_REVERSE_PROXY=yes
-      - git.1402399-cm41529.tw1.ru_PROXY_HOST=http://78.40.217.246:6610
+      - 80:80
+      - 443:443
+    depends_on:
+      - dip
+  #nginx:
+  #  image: bunkerity/bunkerized-nginx
+  #  restart: always
+  #  ports:
+  #    - 80:8080
+  #    - 443:8443
+  #  volumes:
+  #    - ./www:/www:ro
+  #    - ./certs:/etc/letsencrypt
+  #  environment:
+  #    - SERVER_NAME=site.1402399-cm41529.tw1.ru git.1402399-cm41529.tw1.ru
+  #    - MULTISITE=yes
+  #    - AUTO_LETS_ENCRYPT=yes
+  #    - site.1402399-cm41529.tw1.ru_USE_REVERSE_PROXY=yes
+  #    - site.1402399-cm41529.tw1.ru_PROXY_HOST=http://dip
+  #    - git.1402399-cm41529.tw1.ru_USE_REVERSE_PROXY=yes
+  #    - git.1402399-cm41529.tw1.ru_PROXY_HOST=http://78.40.217.246:6610
 
       
 
