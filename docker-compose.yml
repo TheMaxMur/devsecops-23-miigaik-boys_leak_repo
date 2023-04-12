@@ -31,8 +31,16 @@ services:
       - ./www:/www:ro
       - ./certs:/etc/letsencrypt
     environment:
-      - SERVER_NAME=www.boys.devsecops
+      - SERVER_NAME=site.1402399-cm41529.tw1.ru git.1402399-cm41529.tw1.ru
+      - MULTISITE=yes
       - AUTO_LETS_ENCRYPT=yes
+      - site.1402399-cm41529.tw1.ru_USE_REVERSE_PROXY=yes
+      - site.1402399-cm41529.tw1.ru_PROXY_HOST=http://dip
+      - git.1402399-cm41529.tw1.ru_USE_REVERSE_PROXY=yes
+      - git.1402399-cm41529.tw1.ru_PROXY_HOST=http://78.40.217.246:6610
+
+      
+
 
 
 volumes:
