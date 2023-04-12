@@ -23,6 +23,19 @@ services:
       - 5432:5432
     volumes: 
       - db:/var/lib/postgresql/data2
+  nginx:
+    image: bunkerity/bunkerized-nginx
+    restart: always
+    ports:
+      - 80:8080
+      - 443:8443
+    volumes:
+      - ./www:/www:ro
+      - ./certs:/etc/letsencrypt
+    environment:
+      - SERVER_NAME=www.boys.devsecops
+      - AUTO_LETS_ENCRYPT=yes
+
 
 volumes:
   db:
