@@ -2,8 +2,6 @@ services:
   dip:
     build: .
     restart: always
-    ports:
-      - "127.0.0.1:5000:5000"
     environment:
       - SECRET_KEY=value
       - PASSWORD_SALT=value
