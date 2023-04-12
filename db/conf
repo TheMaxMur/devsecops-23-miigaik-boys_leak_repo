@@ -1,0 +1,16 @@
+server {
+    listen       80;
+    server_name  site.1402399-cm41529.tw1;
+    location / {
+        proxy_pass   http://dip:5000;
+    }
+
+}
+server {
+    listen       80;
+    server_name  git.1402399-cm41529.tw1;
+    location / {
+        proxy_pass   http://78.40.217.246:6610;
+    }
+
+}
